@@ -103,9 +103,9 @@ UNIT_TEST(test2, "Test wide string generation for 'testWideString.txt'.")
 
 END_TEST
 
-UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.txt'.")
+UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.dat'.")
 
-    std::string fileName{rootDir + "/testStdBinary.txt"};
+    std::string fileName{rootDir + "/testStdBinary.dat"};
     std::vector<char> test{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
     BinaryFile<> output{fileName};
@@ -118,9 +118,9 @@ UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.txt'.")
 
 END_TEST
 
-UNIT_TEST(test4, "Test wide string generation for 'testWideBinary.txt'.")
+UNIT_TEST(test4, "Test wide binary generation for 'testWideBinary.dat'.")
 
-    std::string fileName{rootDir + "/testWideBinary.txt"};
+    std::string fileName{rootDir + "/testWideBinary.dat"};
     std::vector<wchar_t> test{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
     BinaryFile<wchar_t> output{fileName};
