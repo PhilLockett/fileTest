@@ -73,10 +73,10 @@ UNIT_TEST(test1, "Test standard string generation for 'testStdString.txt'.")
     };
 
     TextFile<> output{fileName};
-    output.write(test);
+    REQUIRE(output.write(test) == 0)
 
     TextFile<> input{fileName};
-    input.read();
+    REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
 
@@ -94,10 +94,10 @@ UNIT_TEST(test2, "Test wide string generation for 'testWideString.txt'.")
     };
 
     TextFile<wchar_t> output{fileName};
-    output.write(test);
+    REQUIRE(output.write(test) == 0)
 
     TextFile<wchar_t> input{fileName};
-    input.read();
+    REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
 
@@ -109,10 +109,10 @@ UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.dat'.")
     std::vector<char> test{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
     BinaryFile<> output{fileName};
-    output.write(test);
+    REQUIRE(output.write(test) == 0)
 
     BinaryFile<> input{fileName};
-    input.read();
+    REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
 
@@ -124,10 +124,10 @@ UNIT_TEST(test4, "Test wide binary generation for 'testWideBinary.dat'.")
     std::vector<wchar_t> test{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
     BinaryFile<wchar_t> output{fileName};
-    output.write(test);
+    REQUIRE(output.write(test) == 0)
 
     BinaryFile<wchar_t> input{fileName};
-    input.read();
+    REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
 
