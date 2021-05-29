@@ -75,10 +75,10 @@ UNIT_TEST(test1, "Test standard string generation for 'testStdString.txt'.")
     TextFile<> output{fileName};
     output.write(test);
 
-    TextFile<> expected{fileName};
-    expected.read();
+    TextFile<> input{fileName};
+    input.read();
 
-    REQUIRE(expected.equal(output))
+    REQUIRE(input.equal(output))
 
 END_TEST
 
@@ -96,10 +96,10 @@ UNIT_TEST(test2, "Test wide string generation for 'testWideString.txt'.")
     TextFile<wchar_t> output{fileName};
     output.write(test);
 
-    TextFile<wchar_t> expected{fileName};
-    expected.read();
+    TextFile<wchar_t> input{fileName};
+    input.read();
 
-    REQUIRE(expected.equal(output))
+    REQUIRE(input.equal(output))
 
 END_TEST
 
@@ -111,10 +111,10 @@ UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.dat'.")
     BinaryFile<> output{fileName};
     output.write(test);
 
-    BinaryFile<> expected{fileName};
-    expected.read();
+    BinaryFile<> input{fileName};
+    input.read();
 
-    REQUIRE(expected.equal(output))
+    REQUIRE(input.equal(output))
 
 END_TEST
 
@@ -126,10 +126,10 @@ UNIT_TEST(test4, "Test wide binary generation for 'testWideBinary.dat'.")
     BinaryFile<wchar_t> output{fileName};
     output.write(test);
 
-    BinaryFile<wchar_t> expected{fileName};
-    expected.read();
+    BinaryFile<wchar_t> input{fileName};
+    input.read();
 
-    REQUIRE(expected.equal(output))
+    REQUIRE(input.equal(output))
 
 END_TEST
 
