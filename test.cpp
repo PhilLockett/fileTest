@@ -145,7 +145,7 @@ int runTests()
 
     const int err = FINISHED;
     if (err)
-        std::cerr << err << "\n\nERROR(S) encountered!.\n";
+        std::cerr << "\n\n" << err << " ERROR(S) encountered!.\n";
     else
     {
         std::cout << "\nAll tests passed.\n";
