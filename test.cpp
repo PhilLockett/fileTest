@@ -79,6 +79,7 @@ UNIT_TEST(test1, "Test standard string generation for 'testStdString.txt'.")
     REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
+    REQUIRE(output.equal(input))
 
 END_TEST
 
@@ -100,6 +101,7 @@ UNIT_TEST(test2, "Test wide string generation for 'testWideString.txt'.")
     REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
+    REQUIRE(output.equal(input))
 
 END_TEST
 
@@ -115,6 +117,7 @@ UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.dat'.")
     REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
+    REQUIRE(output.equal(input))
 
 END_TEST
 
@@ -130,6 +133,7 @@ UNIT_TEST(test4, "Test wide binary generation for 'testWideBinary.dat'.")
     REQUIRE(input.read() == 0)
 
     REQUIRE(input.equal(output))
+    REQUIRE(output.equal(input))
 
 END_TEST
 
