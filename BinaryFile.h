@@ -52,6 +52,7 @@ public:
 
     void load(const std::vector<T> & other) { data = other; }
     bool equal(const BinaryFile & other) const;
+    bool equal(const BinaryFile & other, size_t count) const { return std::equal(data.begin(), data.begin()+count, other.data.begin()); }
     void clear(void) { data.clear(); }
 
     void setFileName(const std::string & file) { fileName = file; }

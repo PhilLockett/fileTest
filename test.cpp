@@ -81,6 +81,16 @@ UNIT_TEST(test1, "Test standard string generation for 'testStdString.txt'.")
     REQUIRE(input.equal(output))
     REQUIRE(output.equal(input))
 
+    std::filesystem::path dummyFile{rootDir + "/dummy.txt"};
+    std::vector<std::string> testSome{ 
+        "Standard Line 0",
+        "Standard Line 1",
+        "Standard Line 2"
+    };
+    TextFile<> compare{dummyFile};
+    compare.load(testSome);
+    REQUIRE(input.equal(compare, compare.size()))
+
 END_TEST
 
 UNIT_TEST(test2, "Test wide string generation for 'testWideString.txt'.")
@@ -118,6 +128,12 @@ UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.dat'.")
 
     REQUIRE(input.equal(output))
     REQUIRE(output.equal(input))
+
+    std::filesystem::path dummyFile{rootDir + "/dummy.txt"};
+    std::vector<char> testSome{ 1, 2, 3, 4, 5 };
+    BinaryFile<> compare{dummyFile};
+    compare.load(testSome);
+    REQUIRE(input.equal(compare, compare.size()))
 
 END_TEST
 
