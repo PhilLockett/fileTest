@@ -51,6 +51,8 @@ public:
     friend std::ostream & operator<<(std::ostream &os, const BinaryFile &A) { A.display(os); return os; }
 
     void setData(const std::vector<T> & other) { data = other; }
+    std::vector<T> getData() { return data; }
+    const std::vector<T> getData() const { return data; }
     bool equal(const BinaryFile & other) const;
     bool equal(const BinaryFile & other, size_t count) const { return std::equal(data.begin(), data.begin()+count, other.data.begin()); }
     void clear(void) { data.clear(); }

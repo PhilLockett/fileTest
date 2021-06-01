@@ -51,6 +51,8 @@ public:
     friend std::ostream & operator<<(std::ostream &os, const TextFile &A) { A.display(os); return os; }
 
     void setData(const std::vector<std::basic_string<T>> & other) { data = other; }
+    std::vector<std::basic_string<T>> getData() { return data; }
+    const std::vector<std::basic_string<T>> getData() const { return data; }
     bool equal(const TextFile & other) const;
     bool equal(const TextFile & other, size_t count) const { return std::equal(data.begin(), data.begin()+count, other.data.begin()); }
     void clear(void) { data.clear(); }
