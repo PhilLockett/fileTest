@@ -50,7 +50,7 @@ public:
 
     friend std::ostream & operator<<(std::ostream &os, const TextFile &A) { A.display(os); return os; }
 
-    void load(const std::vector<std::basic_string<T>> & other) { data = other; }
+    void setData(const std::vector<std::basic_string<T>> & other) { data = other; }
     bool equal(const TextFile & other) const;
     bool equal(const TextFile & other, size_t count) const { return std::equal(data.begin(), data.begin()+count, other.data.begin()); }
     void clear(void) { data.clear(); }
@@ -65,7 +65,7 @@ public:
     Iterator begin(void) { return data.begin(); }
     Iterator end(void) { return data.end(); }
 
-    int write(const std::vector<std::basic_string<T>> & other) { load(other); return write(); }
+    int write(const std::vector<std::basic_string<T>> & other) { setData(other); return write(); }
     int write(void) const;
     int read(int reserve = 100);
 

@@ -88,7 +88,7 @@ UNIT_TEST(test1, "Test standard string generation for 'testStdString.txt'.")
         "Standard Line 2"
     };
     TextFile<> compare{dummyFile};
-    compare.load(testSome);
+    compare.setData(testSome);
     REQUIRE(input.equal(compare, compare.size()))
 
 END_TEST
@@ -132,7 +132,7 @@ UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.dat'.")
     std::filesystem::path dummyFile{rootDir + "/dummy.txt"};
     std::vector<char> testSome{ 1, 2, 3, 4, 5 };
     BinaryFile<> compare{dummyFile};
-    compare.load(testSome);
+    compare.setData(testSome);
     REQUIRE(input.equal(compare, compare.size()))
 
 END_TEST
