@@ -225,7 +225,7 @@ UNIT_TEST(test7, "Test modifying standard string for 'testModifyString.txt'.")
 
 END_TEST
 
-UNIT_TEST(test8, "Test modifyingstandard binary for 'testModifyBinary.dat'.")
+UNIT_TEST(test8, "Test modifying standard binary for 'testModifyBinary.dat'.")
 
     // Set up.
     std::string fileName{rootDir + "/testModifyBinary.dat"};
