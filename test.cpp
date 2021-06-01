@@ -81,16 +81,6 @@ UNIT_TEST(test1, "Test standard string generation for 'testStdString.txt'.")
     REQUIRE(input.equal(output))
     REQUIRE(output.equal(input))
 
-    std::filesystem::path dummyFile{rootDir + "/dummy.txt"};
-    std::vector<std::string> testSome{ 
-        "Standard Line 0",
-        "Standard Line 1",
-        "Standard Line 2"
-    };
-    TextFile<> compare{dummyFile};
-    compare.setData(testSome);
-    REQUIRE(input.equal(compare, compare.size()))
-
 END_TEST
 
 UNIT_TEST(test2, "Test wide string generation for 'testWideString.txt'.")
@@ -129,12 +119,6 @@ UNIT_TEST(test3, "Test standard binary generation for 'testStdBinary.dat'.")
     REQUIRE(input.equal(output))
     REQUIRE(output.equal(input))
 
-    std::filesystem::path dummyFile{rootDir + "/dummy.txt"};
-    std::vector<char> testSome{ 1, 2, 3, 4, 5 };
-    BinaryFile<> compare{dummyFile};
-    compare.setData(testSome);
-    REQUIRE(input.equal(compare, compare.size()))
-
 END_TEST
 
 UNIT_TEST(test4, "Test wide binary generation for 'testWideBinary.dat'.")
@@ -153,6 +137,128 @@ UNIT_TEST(test4, "Test wide binary generation for 'testWideBinary.dat'.")
 
 END_TEST
 
+UNIT_TEST(test5, "Test limited compare of standard strings'.")
+
+    std::string fileName{rootDir + "/testStdString.txt"};
+    std::vector<std::string> test{ 
+        "Standard Line 0",
+        "Standard Line 1",
+        "Standard Line 2",
+        "Standard Line 3",
+        "Standard Line 4"
+    };
+
+    TextFile<> output{fileName};
+    output.setData(test);
+
+    std::filesystem::path dummyFile{rootDir + "/dummy.txt"};
+    std::vector<std::string> testSome{ 
+        "Standard Line 0",
+        "Standard Line 1",
+        "Standard Line 2"
+    };
+    TextFile<> compare{dummyFile};
+    compare.setData(testSome);
+    REQUIRE(output.equal(compare, compare.size()))
+
+END_TEST
+
+UNIT_TEST(test6, "Test limited compare of standard binary.")
+
+    std::string fileName{rootDir + "/testStdBinary.dat"};
+    std::vector<char> test{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+    BinaryFile<> output{fileName};
+    output.setData(test);
+
+    std::filesystem::path dummyFile{rootDir + "/dummy.txt"};
+    std::vector<char> testSome{ 1, 2, 3, 4, 5 };
+    BinaryFile<> compare{dummyFile};
+    compare.setData(testSome);
+    REQUIRE(output.equal(compare, compare.size()))
+
+END_TEST
+
+UNIT_TEST(test7, "Test modifying standard string for 'testModifyString.txt'.")
+
+    // Set up.
+    std::string fileName{rootDir + "/testModifyString.txt"};
+    std::vector<std::string> test{ 
+        "Standard Line 0",
+        "Standard Line 1",
+        "Standard Line 2",
+        "Standard Line 3",
+        "Standard Line 4"
+    };
+
+    TextFile<> output{fileName};
+    REQUIRE(output.write(test) == 0)
+
+    // Test changing data.
+    TextFile<> input{fileName};
+    REQUIRE(input.read() == 0)
+    auto data = input.getData();
+    data[2] = "Replacement line";
+    data.emplace_back("Appended line");
+
+    input.setData(data);
+    REQUIRE(input.write() == 0)
+
+    // Check changed data.
+    TextFile<> compare{fileName};
+    REQUIRE(compare.read() == 0)
+
+    REQUIRE(input.equal(compare))
+    REQUIRE(compare.equal(input))
+
+    std::vector<std::string> compareTest{ 
+        "Standard Line 0",
+        "Standard Line 1",
+        "Replacement line",
+        "Standard Line 3",
+        "Standard Line 4",
+        "Appended line"
+    };
+    auto compareData = compare.getData();
+    REQUIRE(compareTest.size() == compareData.size())
+    REQUIRE(std::equal(compareTest.begin(), compareTest.end(), compareData.begin()) == true)
+
+END_TEST
+
+UNIT_TEST(test8, "Test modifyingstandard binary for 'testModifyBinary.dat'.")
+
+    // Set up.
+    std::string fileName{rootDir + "/testModifyBinary.dat"};
+    std::vector<char> test{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+    BinaryFile<> output{fileName};
+    REQUIRE(output.write(test) == 0)
+
+    // Test changing data.
+    BinaryFile<> input{fileName};
+    REQUIRE(input.read() == 0)
+    auto data = input.getData();
+    data[2] = 13;
+    data.emplace_back(42);
+
+    input.setData(data);
+    REQUIRE(input.write() == 0)
+
+    // Check changed data.
+    BinaryFile<> compare{fileName};
+    REQUIRE(compare.read() == 0)
+
+    REQUIRE(input.equal(compare))
+    REQUIRE(compare.equal(input))
+
+    std::vector<char> compareTest{ 1, 2, 13, 4, 5, 6, 7, 8, 9, 10, 11, 12, 42 }; 
+    auto compareData = compare.getData();
+    REQUIRE(compareTest.size() == compareData.size())
+    REQUIRE(std::equal(compareTest.begin(), compareTest.end(), compareData.begin()) == true)
+
+END_TEST
+
+
 
 int runTests()
 {
@@ -162,6 +268,10 @@ int runTests()
     RUN_TEST(test2)
     RUN_TEST(test3)
     RUN_TEST(test4)
+    RUN_TEST(test5)
+    RUN_TEST(test6)
+    RUN_TEST(test7)
+    RUN_TEST(test8)
 
     const int err = FINISHED;
     if (err)
