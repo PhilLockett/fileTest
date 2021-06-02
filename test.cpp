@@ -258,6 +258,69 @@ UNIT_TEST(test8, "Test modifying standard binary for 'testModifyBinary.dat'.")
 
 END_TEST
 
+std::vector<std::string> testMoveString(const std::string & fileName)
+{
+    TextFile<> input{fileName};
+    REQUIRE(input.read() == 0)
+
+    return input.moveData();
+}
+UNIT_TEST(test9, "Test moving standard string for 'testMoveString.txt'.")
+
+    // Set up.
+    std::string fileName{rootDir + "/testMoveString.txt"};
+    std::vector<std::string> test{ 
+        "Standard Line 0",
+        "Standard Line 1",
+        "Standard Line 2",
+        "Standard Line 3",
+        "Standard Line 4"
+    };
+
+    TextFile<> output{fileName};
+    REQUIRE(output.write(test) == 0)
+
+    // Test moving data out.
+    auto data = testMoveString(fileName);
+    REQUIRE(test.size() == data.size())
+    REQUIRE(std::equal(test.begin(), test.end(), data.begin()) == true)
+
+    // Test moving data in.
+    TextFile<> compare{fileName};
+    compare.moveData(std::move(data));
+    REQUIRE(data.size() == 0)
+    REQUIRE(output.equal(compare))
+
+END_TEST
+
+std::vector<char> testMoveBinary(const std::string & fileName)
+{
+    BinaryFile<> input{fileName};
+    REQUIRE(input.read() == 0)
+
+    return input.moveData();
+}
+UNIT_TEST(test10, "Test moving standard binary for 'testMoveBinary.dat'.")
+
+    // Set up.
+    std::string fileName{rootDir + "/testMoveBinary.dat"};
+    std::vector<char> test{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+    BinaryFile<> output{fileName};
+    REQUIRE(output.write(test) == 0)
+
+    // Test moving data out.
+    auto data = testMoveBinary(fileName);
+    REQUIRE(test.size() == data.size())
+    REQUIRE(std::equal(test.begin(), test.end(), data.begin()) == true)
+
+    // Test moving data in.
+    BinaryFile<> compare{fileName};
+    compare.moveData(std::move(data));
+    REQUIRE(data.size() == 0)
+    REQUIRE(output.equal(compare))
+
+END_TEST
 
 
 int runTests()
@@ -272,6 +335,8 @@ int runTests()
     RUN_TEST(test6)
     RUN_TEST(test7)
     RUN_TEST(test8)
+    RUN_TEST(test9)
+    RUN_TEST(test10)
 
     const int err = FINISHED;
     if (err)

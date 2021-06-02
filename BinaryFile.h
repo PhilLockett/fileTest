@@ -53,6 +53,9 @@ public:
     void setData(const std::vector<T> & other) { data = other; }
     std::vector<T> getData() { return data; }
     const std::vector<T> getData() const { return data; }
+    std::vector<T> moveData() noexcept { return std::move(data); }
+    void moveData(std::vector<T> && other) noexcept { data = std::move(other); }
+
     bool equal(const BinaryFile & other) const;
     bool equal(const BinaryFile & other, size_t count) const { return std::equal(data.begin(), data.begin()+count, other.data.begin()); }
     void clear(void) { data.clear(); }

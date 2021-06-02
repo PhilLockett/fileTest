@@ -53,6 +53,9 @@ public:
     void setData(const std::vector<std::basic_string<T>> & other) { data = other; }
     std::vector<std::basic_string<T>> getData() { return data; }
     const std::vector<std::basic_string<T>> getData() const { return data; }
+    std::vector<std::basic_string<T>> moveData() noexcept { return std::move(data); }
+    void moveData(std::vector<std::basic_string<T>> && other) noexcept { data = std::move(other); }
+
     bool equal(const TextFile & other) const;
     bool equal(const TextFile & other, size_t count) const { return std::equal(data.begin(), data.begin()+count, other.data.begin()); }
     void clear(void) { data.clear(); }
