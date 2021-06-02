@@ -9,10 +9,9 @@ TextFile and BinaryFile are template classes that provide light weight file
 handling capabilities. They capture the entire file contents as vectors, so 
 may not be appropriate for large files.
 
-For TextFile the data is contained in a 
-std::vector<<std::basic_string<<CharT>>>>
+For TextFile the data is contained in a `std::vector<std::basic_string<CharT>>`
 where each string represents a line of text and may contain whitespace. For 
-BinaryFile the data is contained in a std::vector<<CharT>>. Note, although this
+BinaryFile the data is contained in a `std::vector<CharT>`. Note, although this
 code compiles with a CharT other than char (e.g. wchar_t), on the systems
 I've tested on it behaves as a single byte char type.
 
