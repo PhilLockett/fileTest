@@ -338,13 +338,8 @@ int runTests()
     RUN_TEST(test9)
     RUN_TEST(test10)
 
-    const int err = FINISHED;
-    if (err)
-        std::cerr << "\n\n" << err << " ERROR(S) encountered!.\n";
-    else
-    {
-        std::cout << "\nAll tests passed.\n";
-    }
+    const int err{FINISHED};
+    OUTPUT_SUMMARY;
 
     return err;
 }
